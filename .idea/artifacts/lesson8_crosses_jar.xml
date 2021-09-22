@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lesson8_crosses:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/lesson8_crosses_jar</output-path>
+    <root id="archive" name="lesson8_crosses.jar">
+      <element id="module-output" name="lesson8_crosses" />
+    </root>
+  </artifact>
+</component>
