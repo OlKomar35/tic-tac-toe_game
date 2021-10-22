@@ -44,6 +44,14 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
         newGame = new JMenuItem("New Game");
         exit = new JMenuItem("Exit");
         fileMenu.add(newGame);
+        newGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < 9; i++) {
+                    playingField[i].setEnabled(true);
+                    playingField[i].setText(DOT_EMPTY);
+                }
+            }
+        });
         fileMenu.addSeparator();
         fileMenu.add(exit);
         exit.addActionListener(new ActionListener() {
@@ -69,34 +77,12 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
         if (e.getSource() instanceof JButton) {
             String text = ((JButton) e.getSource()).getText();
 
-            if (((JButton) e.getSource()).getX() == 1 && ((JButton) e.getSource()).getY() == 1) {
-                index = 0;
-            }
-            if (((JButton) e.getSource()).getX() == 115 && ((JButton) e.getSource()).getY() == 1) {
-                index = 1;
-            }
-            if (((JButton) e.getSource()).getX() == 229 && ((JButton) e.getSource()).getY() == 1) {
-                index = 2;
-            }
-            if (((JButton) e.getSource()).getX() == 1 && ((JButton) e.getSource()).getY() == 150) {
-                index = 3;
-            }
-            if (((JButton) e.getSource()).getX() == 115 && ((JButton) e.getSource()).getY() == 150) {
-                index = 4;
-            }
-            if (((JButton) e.getSource()).getX() == 229 && ((JButton) e.getSource()).getY() == 150) {
-                index = 5;
-            }
-            if (((JButton) e.getSource()).getX() == 1 && ((JButton) e.getSource()).getY() == 299) {
-                index = 6;
-            }
-            if (((JButton) e.getSource()).getX() == 115 && ((JButton) e.getSource()).getY() == 299) {
-                index = 7;
-            }
-            if (((JButton) e.getSource()).getX() == 229 && ((JButton) e.getSource()).getY() == 299) {
-                index = 8;
-            }
 
+            for (int i = 0; i < 9; i++) {
+                if (e.getSource()==playingField[i]) {
+                    index = i;
+                }
+            }
             if (text.equals(DOT_EMPTY)) {
                 playingField[index].setText(DOT_X);
                 playingField[index].setEnabled(false);
@@ -149,11 +135,101 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
         return false;
     }
 
+    //ход компьютера
     private void aiTurn() {
         int x, y;
         int kx, k;
         int count = 0;
+
         for (int i = 0; i < 3; i++) {
+            k = 0;
+            kx = 0;
+            x = -1;
+            y = -1;
+            //проверка выгреша компьютера
+            //проверка строк
+            for (int j = 0; j < 3; j++) {
+                if (playingField[3 * i + j].getText().equals(DOT_0)) kx++;
+                else {
+                    if (playingField[3 * i + j].getText().equals(DOT_EMPTY)) {
+                        x = i;
+                        y = j;
+                        k++;
+                    }
+                }
+            }
+            if (kx == 2 && k == 1) {
+                playingField[3 * x + y].setText(DOT_0);
+                count++;
+                playingField[3 * x + y].setEnabled(false);
+                break;
+            }
+            k = 0;
+            kx = 0;
+            x = -1;
+            y = -1;
+            //проверка столбцов
+            for (int j = 0; j < 3; j++) {
+                if (playingField[3 * j + i].getText().equals(DOT_0)) kx++;
+                else {
+                    if (playingField[3 * j + i].getText().equals(DOT_EMPTY)) {
+                        x = j;
+                        y = i;
+                        k++;
+                    }
+                }
+            }
+            if (kx == 2 && k == 1) {
+                playingField[3 * x + y].setText(DOT_0);
+                count++;
+                playingField[3 * x + y].setEnabled(false);
+                break;
+
+            }
+            // провеока главной диагонали
+            k = 0;
+            kx = 0;
+            x = -1;
+            y = -1;
+            for (int j = 0; j < 3; j++) {
+                if (playingField[4*j].getText().equals(DOT_0)) kx++;
+                else {
+                    if (playingField[4*j].getText().equals(DOT_EMPTY)) {
+                        x = 4*j;
+                        k++;
+                    }
+                }
+            }
+            if (kx == 2 && k == 1) {
+                playingField[x].setText(DOT_0);
+                count++;
+                playingField[x].setEnabled(false);
+                break;
+
+            }
+//            проверка побочной диагонали
+            k = 0;
+            kx = 0;
+            x = -1;
+            y = -1;
+            for (int j = 0; j < 3; j++) {
+                if (playingField[6-2*j].getText().equals(DOT_0)) kx++;
+                else {
+                    if (playingField[6-2*j].getText().equals(DOT_EMPTY)) {
+                        x = 6-2*j;
+                        k++;
+                    }
+                }
+            }
+            if (kx == 2 && k == 1) {
+                playingField[x].setText(DOT_0);
+                count++;
+                playingField[x].setEnabled(false);
+                break;
+            }
+
+
+            //блокировка хода человека
             k = 0;
             kx = 0;
             x = -1;
@@ -248,6 +324,9 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
                 playingField[3 * x + y].setText(DOT_0);
                 playingField[3 * x + y].setEnabled(false);
             }
+
+
+
         }
 
     }
