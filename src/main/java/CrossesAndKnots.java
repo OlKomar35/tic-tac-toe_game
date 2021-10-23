@@ -34,7 +34,6 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
         init();
 
 
-
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
@@ -52,6 +51,8 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
                 }
             }
         });
+
+
         fileMenu.addSeparator();
         fileMenu.add(exit);
         exit.addActionListener(new ActionListener() {
@@ -62,6 +63,7 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
 
         setVisible(true);
     }
+
 
     private void init() {
         for (int i = 0; i < 9; i++) {
@@ -79,7 +81,7 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
 
 
             for (int i = 0; i < 9; i++) {
-                if (e.getSource()==playingField[i]) {
+                if (e.getSource() == playingField[i]) {
                     index = i;
                 }
             }
@@ -87,26 +89,41 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
                 playingField[index].setText(DOT_X);
                 playingField[index].setEnabled(false);
             }
-            if (isCheckWin(DOT_X)) {
-                JOptionPane.showMessageDialog(null,"Победил человек" );
-                System.exit(0);
-            }
-            if (isMapFull()) {
-                JOptionPane.showMessageDialog(null,"Ничья" );
-                System.exit(0);
-            }
-            aiTurn();
+            int countPanel = 0;
+            if (isCheckWin(DOT_X) && countPanel == 0) {
+                JOptionPane.showMessageDialog(null, "Победил человек");
+                panelBlocking();
+                countPanel = 1;
 
-            if (isCheckWin(DOT_0)) {
-                JOptionPane.showMessageDialog(null,"Победил искусственный интелект" );
-                System.exit(0);
             }
-            if (isMapFull()) {
-                JOptionPane.showMessageDialog(null,"Ничья" );
-                System.exit(0);
+            if (isMapFull() && countPanel == 0) {
+                JOptionPane.showMessageDialog(null, "Ничья");
+                countPanel = 1;
+                //System.exit(0);
+            }
+            if (countPanel==0)aiTurn();
+
+            if (isCheckWin(DOT_0) && countPanel == 0) {
+                JOptionPane.showMessageDialog(null, "Победил искусственный интелект");
+                panelBlocking();
+                countPanel = 1;
+
+            }
+            if (isMapFull() && countPanel == 0) {
+                JOptionPane.showMessageDialog(null, "Ничья");
+                //countPanel = 1;
+
             }
         }
 
+    }
+
+    private void panelBlocking() {
+        for (int i = 0; i < 9; i++) {
+            if (playingField[i].getText().equals(DOT_EMPTY)) {
+                playingField[i].setEnabled(false);
+            }
+        }
     }
 
     private boolean isMapFull() {
@@ -126,8 +143,8 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
             for (int j = 0; j < 3; j++) {
                 if (playingField[3 * i + j].getText().equals(dot)) countI++;
                 if (playingField[3 * j + i].getText().equals(dot)) countJ++;
-                if (playingField[4*j].getText().equals(dot)) countD1++;
-                if (playingField[6-2*j].getText().equals(dot)) countD2++;
+                if (playingField[4 * j].getText().equals(dot)) countD1++;
+                if (playingField[6 - 2 * j].getText().equals(dot)) countD2++;
                 if (countD1 == DOTS_TO_WIN || countD2 == DOTS_TO_WIN || countI == DOTS_TO_WIN || countJ == DOTS_TO_WIN)
                     return true;
             }
@@ -192,10 +209,10 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
             x = -1;
             y = -1;
             for (int j = 0; j < 3; j++) {
-                if (playingField[4*j].getText().equals(DOT_0)) kx++;
+                if (playingField[4 * j].getText().equals(DOT_0)) kx++;
                 else {
-                    if (playingField[4*j].getText().equals(DOT_EMPTY)) {
-                        x = 4*j;
+                    if (playingField[4 * j].getText().equals(DOT_EMPTY)) {
+                        x = 4 * j;
                         k++;
                     }
                 }
@@ -213,10 +230,10 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
             x = -1;
             y = -1;
             for (int j = 0; j < 3; j++) {
-                if (playingField[6-2*j].getText().equals(DOT_0)) kx++;
+                if (playingField[6 - 2 * j].getText().equals(DOT_0)) kx++;
                 else {
-                    if (playingField[6-2*j].getText().equals(DOT_EMPTY)) {
-                        x = 6-2*j;
+                    if (playingField[6 - 2 * j].getText().equals(DOT_EMPTY)) {
+                        x = 6 - 2 * j;
                         k++;
                     }
                 }
@@ -227,108 +244,110 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
                 playingField[x].setEnabled(false);
                 break;
             }
+        }
+        if (count == 0) {
+            for (int i = 0; i < 3; i++) {
 
-
-            //блокировка хода человека
-            k = 0;
-            kx = 0;
-            x = -1;
-            y = -1;
-            //проверка строк
-            for (int j = 0; j < 3; j++) {
-                if (playingField[3 * i + j].getText().equals(DOT_X)) kx++;
-                else {
-                    if (playingField[3 * i + j].getText().equals(DOT_EMPTY)) {
-                        x = i;
-                        y = j;
-                        k++;
+                //блокировка хода человека
+                k = 0;
+                kx = 0;
+                x = -1;
+                y = -1;
+                //проверка строк
+                for (int j = 0; j < 3; j++) {
+                    if (playingField[3 * i + j].getText().equals(DOT_X)) kx++;
+                    else {
+                        if (playingField[3 * i + j].getText().equals(DOT_EMPTY)) {
+                            x = i;
+                            y = j;
+                            k++;
+                        }
                     }
                 }
-            }
-            if (kx == 2 && k == 1) {
-                playingField[3 * x + y].setText(DOT_0);
-                count++;
-                playingField[3 * x + y].setEnabled(false);
-                break;
-            }
-            k = 0;
-            kx = 0;
-            x = -1;
-            y = -1;
-            //проверка столбцов
-            for (int j = 0; j < 3; j++) {
-                if (playingField[3 * j + i].getText().equals(DOT_X)) kx++;
-                else {
-                    if (playingField[3 * j + i].getText().equals(DOT_EMPTY)) {
-                        x = j;
-                        y = i;
-                        k++;
+                if (kx == 2 && k == 1) {
+                    playingField[3 * x + y].setText(DOT_0);
+                    count++;
+                    playingField[3 * x + y].setEnabled(false);
+                    break;
+                }
+                k = 0;
+                kx = 0;
+                x = -1;
+                y = -1;
+                //проверка столбцов
+                for (int j = 0; j < 3; j++) {
+                    if (playingField[3 * j + i].getText().equals(DOT_X)) kx++;
+                    else {
+                        if (playingField[3 * j + i].getText().equals(DOT_EMPTY)) {
+                            x = j;
+                            y = i;
+                            k++;
+                        }
                     }
                 }
-            }
-            if (kx == 2 && k == 1) {
-                playingField[3 * x + y].setText(DOT_0);
-                count++;
-                playingField[3 * x + y].setEnabled(false);
-                break;
+                if (kx == 2 && k == 1) {
+                    playingField[3 * x + y].setText(DOT_0);
+                    count++;
+                    playingField[3 * x + y].setEnabled(false);
+                    break;
 
-            }
-            // провеока главной диагонали
-            k = 0;
-            kx = 0;
-            x = -1;
-            y = -1;
-            for (int j = 0; j < 3; j++) {
-                if (playingField[4*j].getText().equals(DOT_X)) kx++;
-                else {
-                    if (playingField[4*j].getText().equals(DOT_EMPTY)) {
-                        x = 4*j;
-                        k++;
+                }
+                // провеока главной диагонали
+                k = 0;
+                kx = 0;
+                x = -1;
+                y = -1;
+                for (int j = 0; j < 3; j++) {
+                    if (playingField[4 * j].getText().equals(DOT_X)) kx++;
+                    else {
+                        if (playingField[4 * j].getText().equals(DOT_EMPTY)) {
+                            x = 4 * j;
+                            k++;
+                        }
                     }
                 }
-            }
-            if (kx == 2 && k == 1) {
-                playingField[x].setText(DOT_0);
-                count++;
-                playingField[x].setEnabled(false);
-                break;
+                if (kx == 2 && k == 1) {
+                    playingField[x].setText(DOT_0);
+                    count++;
+                    playingField[x].setEnabled(false);
+                    break;
 
-            }
+                }
 //            проверка побочной диагонали
-            k = 0;
-            kx = 0;
-            x = -1;
-            y = -1;
-            for (int j = 0; j < 3; j++) {
-                if (playingField[6-2*j].getText().equals(DOT_X)) kx++;
-                else {
-                    if (playingField[6-2*j].getText().equals(DOT_EMPTY)) {
-                        x = 6-2*j;
-                        k++;
+                k = 0;
+                kx = 0;
+                x = -1;
+                y = -1;
+                for (int j = 0; j < 3; j++) {
+                    if (playingField[6 - 2 * j].getText().equals(DOT_X)) kx++;
+                    else {
+                        if (playingField[6 - 2 * j].getText().equals(DOT_EMPTY)) {
+                            x = 6 - 2 * j;
+                            k++;
+                        }
                     }
                 }
-            }
-            if (kx == 2 && k == 1) {
-                playingField[x].setText(DOT_0);
-                count++;
-                playingField[x].setEnabled(false);
-                break;
+                if (kx == 2 && k == 1) {
+                    playingField[x].setText(DOT_0);
+                    count++;
+                    playingField[x].setEnabled(false);
+                    break;
+                }
             }
         }
-            if (count == 0) {
-                do {
-                    x = rand.nextInt(3);
-                    y = rand.nextInt(3);
-                } while (playingField[3 * x + y].getText().equals(DOT_X));
-                count++;
-                playingField[3 * x + y].setText(DOT_0);
-                playingField[3 * x + y].setEnabled(false);
-            }
-
-
-
+        if (count == 0) {
+            do {
+                x = rand.nextInt(9);
+                //y = rand.nextInt(3);
+            } while (playingField[x].getText().equals(DOT_X));
+            count++;
+            playingField[x].setText(DOT_0);
+            playingField[x].setEnabled(false);
         }
+
 
     }
+
+}
 
 
