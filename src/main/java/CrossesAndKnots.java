@@ -43,23 +43,17 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
         newGame = new JMenuItem("New Game");
         exit = new JMenuItem("Exit");
         fileMenu.add(newGame);
-        newGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < 9; i++) {
-                    playingField[i].setEnabled(true);
-                    playingField[i].setText(DOT_EMPTY);
-                }
+        newGame.addActionListener(e -> {
+            for (int i = 0; i < 9; i++) {
+                playingField[i].setEnabled(true);
+                playingField[i].setText(DOT_EMPTY);
             }
         });
 
 
         fileMenu.addSeparator();
         fileMenu.add(exit);
-        exit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exit.addActionListener(e -> System.exit(0));
 
         setVisible(true);
     }
@@ -344,10 +338,7 @@ public class CrossesAndKnots extends JFrame implements ActionListener {
             playingField[x].setText(DOT_0);
             playingField[x].setEnabled(false);
         }
-
-
     }
-
 }
 
 
