@@ -14,9 +14,9 @@
  <p dir="auto"><b>Используемые технологии:</b></p>
 </blockquote>
 
-
-Java Swing
-Java Core
+<ul>
+<li>Java Swing</li>
+<li>Java Core</li>
 Это начальный вид экрана
 
 ![Image for project](https://github.com/OlKomar35/tic-tac-toe_game/blob/master/image_for_project/screen8.jpg)
