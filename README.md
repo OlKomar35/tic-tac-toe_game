@@ -1,17 +1,19 @@
 <h1 align="center">Tic-tac-toe Game - игра в крестики-нолики. <br> Реализованная при помощи Java Swing </h1>
-<pre class="notranslate">
-<code>____
-</code></pre>
+
 
 <blockquote>
-<p dir="auto"><b>Техническая часть</b></p>
+ <p dir="auto"><b>Техническая часть:</b></p>
 </blockquote>
-Техническая часть
+
 <ul>
 <li>IDE: IntelliJ IDEA 2021.3.3</li>
 <li>Версия JDK: 1.8.0_121</li>
 </ul>
-Используемые технологии:
+
+<blockquote>
+ <p dir="auto"><b>Используемые технологии:</b></p>
+</blockquote>
+
 
 Java Swing
 Java Core
