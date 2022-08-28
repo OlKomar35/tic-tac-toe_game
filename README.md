@@ -1,5 +1,7 @@
 <h1 align="center">Tic-tac-toe Game - игра в крестики-нолики. <br> Реализованная при помощи Java Swing </h1>
-___
+<pre class="notranslate">
+<code>____
+</code></pre>
 
 <blockquote>
 <p dir="auto"><b>Техническая часть</b></p>
