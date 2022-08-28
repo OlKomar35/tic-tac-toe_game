@@ -1,5 +1,5 @@
-<h3>Tic-tac-toe Game это игра в крестики-нолики. Реализованная при помощи Java Swing </h3>
-
+<h1>Tic-tac-toe Game - игра в крестики-нолики. Реализованная при помощи Java Swing </h1>
+____
 Это начальный вид экрана
 
 ![Image for project](https://github.com/OlKomar35/tic-tac-toe_game/blob/master/image_for_project/screen8.jpg)
