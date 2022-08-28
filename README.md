@@ -1,4 +1,5 @@
 <h1 align="center">Tic-tac-toe Game - игра в крестики-нолики. <br> Реализованная при помощи Java Swing </h1>
+<h2 dir="auto"><a id="user-content-оглавление" class="anchor" aria-hidden="true" href="#оглавление"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a>Оглавление</h2>
 <ol start="0" dir="auto">
 <li><a href="#предисловие">Предисловие</a></li>
 <li><a href="#%D0%97%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BA%D0%B8">Заголовки</a></li>
